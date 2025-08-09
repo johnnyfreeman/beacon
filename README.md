@@ -147,24 +147,6 @@ The system scales linearly with worker count:
 
 Workers are stateless and can be deployed anywhere with network access to the database and orchestrator.
 
-## Data Model
-
-```mermaid
-erDiagram
-    SERVICE ||--o{ ENDPOINT : contains
-    SERVICE ||--o{ WEBHOOK : has
-    ENDPOINT ||--o{ PING : generates
-    ENDPOINT ||--o{ INCIDENT : triggers
-    ENDPOINT ||--o{ PING_WINDOW : aggregates
-```
-
-- **Services** - Logical grouping of related endpoints
-- **Endpoints** - URLs to monitor with configuration
-- **Pings** - Individual monitoring results
-- **Incidents** - Detected outages and resolutions
-- **PingWindows** - 5-minute aggregated metrics
-- **Webhooks** - Notifications for incident events
-
 ## Deployment
 
 ### Docker Compose (included)
@@ -223,14 +205,6 @@ Traditional monitoring systems couple the UI, monitoring logic, and data storage
 - **Database** - SQL database with JSON support
 - **Orchestrator** - Workflow engine with durable execution
 - **Container Platform** - Docker or Kubernetes for deployment
-
-## Contributing
-
-Beacon is designed for extensibility. Key extension points:
-
-- Add new activity types in `internal/temporal/activities.go`
-- Create custom workflows in `internal/temporal/workflows.go`
-- Extend CLI commands in `internal/cli/`
 
 ## License
 
